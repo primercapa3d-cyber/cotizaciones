@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotizador de Impresión 3D</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+
+    <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-2xl">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Cotizador de Impresión 3D</h1>
+        <p class="text-center text-gray-500 mb-8">Calcula el precio de tu proyecto de impresión 3D.</p>
+
+        <form id="cotizadorForm" class="space-y-6">
+
+            <!-- Nombre del Producto -->
+            <div>
+                <label for="producto" class="block text-sm font-medium text-gray-700 mb-1">Nombre del Producto</label>
+                <input type="text" id="producto" name="producto" required
+                        class="mt-1 block w-full px-4 py-2 bg-gray-100 border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        placeholder="Ej: Soporte para sensor">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- Tiempo (Horas) -->
+                <div>
+                    <label for="tiempoHoras" class="block text-sm font-medium text-gray-700 mb-1">Tiempo (Horas)</label>
+                    <input type="number" id="tiempoHoras" name="tiempoHoras" required
+                            class="mt-1 block w-full px-4 py-2 bg-gray-100 border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <!-- Tiempo (Minutos) -->
+                <div>
+                    <label for="tiempoMinutos" class="block text-sm font-medium text-gray-700 mb-1">Tiempo (Minutos)</label>
+                    <input type="number" id="tiempoMinutos" name="tiempoMinutos" required
+                            class="mt-1 block w-full px-4 py-2 bg-gray-100 border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <!-- Gramos -->
+                <div>
+                    <label for="gramos" class="block text-sm font-medium text-gray-700 mb-1">Gramos</label>
+                    <input type="number" id="gramos" name="gramos" required
+                            class="mt-1 block w-full px-4 py-2 bg-gray-100 border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <!-- Accesorios -->
+                <div>
+                    <label for="accesorios" class="block text-sm font-medium text-gray-700 mb-1">Accesorios</label>
+                    <input type="number" id="accesorios" name="accesorios" required
+                            class="mt-1 block w-full px-4 py-2 bg-gray-100 border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+            </div>
+
+            <!-- Materiales -->
+            <fieldset class="p-4 border border-gray-200 rounded-lg">
+                <legend class="text-sm font-medium text-gray-700">Material</legend>
+                <div class="mt-2 space-y-2">
+                    <label class="flex items-center">
+                        <input type="radio" name="material" value="0.5" id="pla" checked class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                        <span class="ml-2 text-sm text-gray-700">PLA</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="material" value="0.6" id="petg" class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                        <span class="ml-2 text-sm text-gray-700">PETG</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="material" value="0.7" id="abs" class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                        <span class="ml-2 text-sm text-gray-700">ABS</span>
+                    </label>
+                </div>
+            </fieldset>
+
+            <div class="pt-6 border-t border-gray-200 mt-6 flex flex-col items-center">
+                <div id="resultContainer" class="mb-4 text-center space-y-2 w-full">
+                    <p id="totalText" class="text-xl font-bold text-gray-800">
+                        Precio Total: <span id="totalDisplay" class="text-indigo-600">0.00</span>
+                    </p>
+                    <!-- Campo de entrada para el Precio de Venta Sugerido -->
+                    <div id="ventaContainer" class="hidden">
+                        <label for="precioVenta" class="block text-sm font-medium text-gray-700 mb-1">Precio de Venta Sugerido</label>
+                        <input type="number" id="precioVenta" name="precioVenta" min="0" step="0.01" required
+                                class="mt-1 block w-full px-4 py-2 bg-gray-100 border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                value="0.00">
+                    </div>
+                </div>
+                
+                <div class="w-full flex flex-col sm:flex-row gap-4">
+                    <button type="button" id="btnCalcular" class="flex-1 w-full sm:w-auto px-4 py-2 text-white bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-150">
+                        Calcular
+                    </button>
+                    <button type="button" id="btnGuardar" disabled class="flex-1 w-full sm:w-auto px-4 py-2 text-white bg-green-600 rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-150 disabled:bg-gray-400 disabled:cursor-not-allowed">
+                        Guardar Cotización
+                    </button>
+                </div>
+                <div id="messageBox" class="mt-4 p-4 rounded-lg text-center w-full hidden"></div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const urlScript = 'https://script.google.com/macros/s/AKfycbzx9YhWoTAG7k_wBABnLz2O0UtkECMASV3ELgk4iqS51gzan2q-UWzcySqRzqd_SVte/exec';
+        const btnCalcular = document.getElementById('btnCalcular');
+        const btnGuardar = document.getElementById('btnGuardar');
+        const totalDisplay = document.getElementById('totalDisplay');
+        const ventaContainer = document.getElementById('ventaContainer');
+        const precioVentaInput = document.getElementById('precioVenta');
+        const messageBox = document.getElementById('messageBox');
+        
+        // Asignación de eventos con addEventListener (buena práctica)
+        btnCalcular.addEventListener('click', calcular);
+        btnGuardar.addEventListener('click', enviarDatos);
+        
+        function calcular() {
+            const producto = document.getElementById('producto').value;
+            const tiempoHoras = parseFloat(document.getElementById('tiempoHoras').value) || 0;
+            const tiempoMinutos = parseFloat(document.getElementById('tiempoMinutos').value) || 0;
+            const gramos = parseFloat(document.getElementById('gramos').value) || 0;
+            const accesorios = parseFloat(document.getElementById('accesorios').value) || 0;
+            const material = parseFloat(document.querySelector('input[name="material"]:checked').value) || 0;
+            
+            if (!producto || isNaN(tiempoHoras) || isNaN(tiempoMinutos) || isNaN(gramos) || isNaN(accesorios) || isNaN(material)) {
+                showMessage('Por favor, llena todos los campos.', 'bg-red-100 text-red-700');
+                totalDisplay.textContent = '0.00';
+                ventaContainer.classList.add('hidden');
+                btnGuardar.disabled = true;
+                return;
+            }
+
+            const precio = (tiempoHoras + (tiempoMinutos / 60)) * 2 + (gramos * material) + accesorios + 20;
+            const precioVentaSugerido = (precio - accesorios) * 3;
+
+            totalDisplay.textContent = precio.toFixed(2);
+            precioVentaInput.value = precioVentaSugerido.toFixed(2);
+            
+            ventaContainer.classList.remove('hidden');
+            btnGuardar.disabled = false;
+            showMessage('Cotización calculada con éxito.', 'bg-green-100 text-green-700');
+        }
+        
+        async function enviarDatos() {
+            // Deshabilitar el botón inmediatamente para evitar envíos duplicados
+            btnGuardar.disabled = true;
+            // Mostrar un mensaje de "Enviando" en verde
+            showMessage('Enviando...', 'bg-green-100 text-green-700');
+
+            const datos = {
+                producto: document.getElementById('producto').value,
+                tiempoHoras: document.getElementById('tiempoHoras').value,
+                tiempoMinutos: document.getElementById('tiempoMinutos').value,
+                gramos: document.getElementById('gramos').value,
+                accesorios: document.getElementById('accesorios').value,
+                material: document.querySelector('input[name="material"]:checked').id,
+                precioTotal: totalDisplay.textContent,
+                precioVenta: precioVentaInput.value,
+            };
+            
+            const formData = new FormData();
+            for (const key in datos) {
+                formData.append(key, datos[key]);
+            }
+
+            try {
+                const response = await fetch(urlScript, { method: 'POST', body: formData });
+                const result = await response.text();
+                showMessage(result, 'bg-green-100 text-green-700');
+            } catch (error) {
+                console.error('Error al guardar los datos:', error);
+                showMessage('Hubo un error al guardar los datos.', 'bg-red-100 text-red-700');
+            }
+            // El botón permanece deshabilitado de forma permanente.
+            // Para poder volver a enviarlo, el usuario debe recargar la página.
+        }
+        
+        function showMessage(text, classes) {
+            messageBox.textContent = text;
+            messageBox.className = `mt-4 p-4 rounded-lg text-center w-full ${classes}`;
+            messageBox.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
