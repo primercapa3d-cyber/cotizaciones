@@ -138,7 +138,7 @@
             }
 
             const precio = (tiempoHoras + (tiempoMinutos / 60)) * 2 + (gramos * material) + accesorios + 20;
-            const precioVentaSugerido = (precio - accesorios) * 3;
+            const precioVentaSugerido = ((((tiempoHoras + (tiempoMinutos / 60)) * 2 + (gramos * material)) * 3)+ accesorios + 20)*1.16;
 
             totalDisplay.textContent = precio.toFixed(2);
             precioVentaInput.value = precioVentaSugerido.toFixed(2);
