@@ -36,50 +36,185 @@
     <!-- ===================== DISEÑO 3D ===================== -->
     <section id="tab-diseno">
 
-        <h2 class="text-2xl font-bold text-center mb-2">Cotizador de Diseño 3D</h2>
-        <p class="text-center text-gray-500 mb-6">Cálculo por puntos y complejidad</p>
+       <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Cotizador de Diseño 3D</h1>
+        <p class="text-center text-gray-500 mb-8">Calcula el precio de tu proyecto de diseño de piezas mecánicas.</p>
 
-        <form id="disenoForm" class="space-y-6">
+        <form id="cotizadorForm" class="space-y-6">
 
+            <!-- Nombre del Proyecto -->
             <div>
-                <label class="block text-sm font-medium mb-1">Nombre del Proyecto</label>
-                <input id="disenoNombre" class="w-full px-4 py-2 bg-gray-100 rounded-lg" required>
+                <label for="nombreProyecto" class="block text-sm font-medium text-gray-700 mb-1">Nombre del Proyecto</label>
+                <input type="text" id="nombreProyecto" name="nombreProyecto" required
+                       class="mt-1 block w-full px-4 py-2 bg-gray-100 border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                       placeholder="Ej: Soporte para sensor">
             </div>
 
+            <!-- Precio por Punto -->
             <div>
-                <label class="block text-sm font-medium mb-1">Precio por Punto ($)</label>
-                <input id="disenoPrecio" type="number" value="50" class="w-full px-4 py-2 bg-gray-100 rounded-lg">
+                <label for="precioUnitario" class="block text-sm font-medium text-gray-700 mb-1">Precio por Punto ($)</label>
+                <input type="number" id="precioUnitario" name="precioUnitario" value="50" min="0" step="1" required
+                       class="mt-1 block w-full px-4 py-2 bg-gray-100 border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                       placeholder="50">
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <fieldset class="p-4 border rounded">
-                    <legend>Claridad</legend>
-                    <label><input type="radio" name="claridad" value="1" checked> Referencias</label><br>
-                    <label><input type="radio" name="claridad" value="3"> Conceptos</label><br>
-                    <label><input type="radio" name="claridad" value="5"> Asesoría</label>
+            <!-- Categorías de Radio Buttons -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Claridad -->
+                <fieldset class="p-4 border border-gray-200 rounded-lg">
+                    <legend class="text-sm font-medium text-gray-700">Claridad de los requerimientos</legend>
+                    <div class="mt-2 space-y-2">
+                        <label class="flex items-center">
+                            <input type="radio" name="claridad" value="1" data-text="Archivos de referencia" checked class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                            <span class="ml-2 text-sm text-gray-700">Archivos de referencia</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="claridad" value="2" data-text="Pieza para replicar" class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                            <span class="ml-2 text-sm text-gray-700">Pieza para replicar</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="claridad" value="3" data-text="Conceptos generales" class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                            <span class="ml-2 text-sm text-gray-700">Conceptos generales</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="claridad" value="5" data-text="Asesoría completa" class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                            <span class="ml-2 text-sm text-gray-700">Asesoría completa</span>
+                        </label>
+                    </div>
                 </fieldset>
 
-                <fieldset class="p-4 border rounded">
-                    <legend>Complejidad</legend>
-                    <label><input type="radio" name="funcionalidad" value="1" checked> Baja</label><br>
-                    <label><input type="radio" name="funcionalidad" value="4"> Media</label><br>
-                    <label><input type="radio" name="funcionalidad" value="8"> Alta</label>
+                <!-- Funcionalidad -->
+                <fieldset class="p-4 border border-gray-200 rounded-lg">
+                    <legend class="text-sm font-medium text-gray-700">Cantidad de elementos críticos</legend>
+                    <div class="mt-2 space-y-2">
+                        <label class="flex items-center">
+                            <input type="radio" name="funcionalidad" value="1" data-text="0–2: Pocos detalles críticos" checked class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                            <span class="ml-2 text-sm text-gray-700">0–2: Pocos detalles críticos</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="funcionalidad" value="2" data-text="3–5: Detalles críticos moderados" class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                            <span class="ml-2 text-sm text-gray-700">3–5: Detalles críticos moderados</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="funcionalidad" value="4" data-text="6–8: Muchos detalles críticos" class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                            <span class="ml-2 text-sm text-gray-700">6–8: Muchos detalles críticos</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="funcionalidad" value="8" data-text="9–10: Muy compleja" class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                            <span class="ml-2 text-sm text-gray-700">9–10: Muy compleja</span>
+                        </label>
+                    </div>
                 </fieldset>
 
-                <fieldset class="p-4 border rounded">
-                    <legend>Horas</legend>
-                    <label><input type="radio" name="iteraciones" value="1" checked> Básico</label><br>
-                    <label><input type="radio" name="iteraciones" value="5"> Intermedio</label><br>
-                    <label><input type="radio" name="iteraciones" value="10"> Avanzado</label>
+                <!-- Pruebas de control -->
+                <fieldset class="p-4 border border-gray-200 rounded-lg">
+                    <legend class="text-sm font-medium text-gray-700">Material para pruebas</legend>
+                    <div class="mt-2 space-y-2">
+                        <label class="flex items-center">
+                            <input type="radio" name="precision" value="1" data-text="1g a 50g" checked class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                            <span class="ml-2 text-sm text-gray-700">1g a 50g</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="precision" value="2" data-text="51 a 100g" class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                            <span class="ml-2 text-sm text-gray-700">51 a 100g</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="precision" value="4" data-text="101 a 200g" class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                            <span class="ml-2 text-sm text-gray-700">101 a 200g</span>
+                        </label>
+						<label class="flex items-center">
+                            <input type="radio" name="precision" value="6" data-text="201 a 300g" class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                            <span class="ml-2 text-sm text-gray-700">201 a 300g</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <!-- Estimación de horas de diseño -->
+                <fieldset class="p-4 border border-gray-200 rounded-lg">
+                    <legend class="text-sm font-medium text-gray-700">Estimación de horas de diseño</legend>
+                    <div class="mt-2 space-y-2">
+                        <label class="flex items-center">
+                            <input type="radio" name="iteraciones" value="1" data-text="0.5–2 horas: Modelado básico" checked class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                            <span class="ml-2 text-sm text-gray-700">0.5–2 horas: Modelado básico</span>
+                        </label>
+						<label class="flex items-center">
+                            <input type="radio" name="iteraciones" value="3" data-text="2–5 horas: Modelado simple" class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                            <span class="ml-2 text-sm text-gray-700">2–5 horas: Modelado simple</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="iteraciones" value="5" data-text="6–10 horas: Modelado intermedio" class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                            <span class="ml-2 text-sm text-gray-700">6–10 horas: Modelado intermedio</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="iteraciones" value="10" data-text="10+ horas: Modelado avanzado" class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                            <span class="ml-2 text-sm text-gray-700">10+ horas: Modelado avanzado</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <!-- Entrega -->
+                <fieldset class="p-4 border border-gray-200 rounded-lg">
+                    <legend class="text-sm font-medium text-gray-700">Entrega acumulada</legend>
+                    <div class="mt-2 space-y-2">
+                        <label class="flex items-center">
+                            <input type="radio" name="entrega" value="1" data-text="Impresión 3D" checked class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                            <span class="ml-2 text-sm text-gray-700">Impresión 3D</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="entrega" value="2" data-text="STL, 3MF" class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                            <span class="ml-2 text-sm text-gray-700">STL, 3MF</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="entrega" value="4" data-text="Archivo editable" class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                            <span class="ml-2 text-sm text-gray-700">Archivo editable</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="entrega" value="7" data-text="Planos normalizados" class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                            <span class="ml-2 text-sm text-gray-700">Planos normalizados</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <!-- Urgencia en la entrega  -->
+                <fieldset class="p-4 border border-gray-200 rounded-lg">
+                    <legend class="text-sm font-medium text-gray-700">Urgencia</legend>
+                    <div class="mt-2 space-y-2">
+                        <label class="flex items-center">
+                            <input type="radio" name="urgencia" value="1" data-text="1 semana: Flexible." checked class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                            <span class="ml-2 text-sm text-gray-700">1 semana: Flexible.</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="urgencia" value="3" data-text="7 días: Normal" class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                            <span class="ml-2 text-sm text-gray-700">7 días: Normal</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="urgencia" value="5" data-text="3–5 días: Rápido." class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                            <span class="ml-2 text-sm text-gray-700">3–5 días: Rápido.</span>
+                        </label>
+
+                        <label class="flex items-center">
+                            <input type="radio" name="urgencia" value="8" data-text="1–2 días: Urgente" class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                            <span class="ml-2 text-sm text-gray-700">1–2 días: Urgente</span>
+                        </label>
+                    </div>
                 </fieldset>
             </div>
 
-            <div class="text-center">
-                <p id="disenoTotal" class="text-xl font-bold">Total: $0</p>
-                <button type="button" id="btnDiseno"
-                        class="mt-3 px-4 py-2 bg-indigo-600 text-white rounded-lg">
-                    Cotizar
-                </button>
+            <div class="pt-6 border-t border-gray-200 mt-6 flex flex-col items-center">
+                <div id="resultContainer" class="mb-4 text-center">
+                    <p id="totalText" class="text-2xl font-bold text-gray-800">Precio Total: $0.00</p>
+                </div>
+                
+                <div class="w-full flex flex-col sm:flex-row gap-4">
+                    <button type="button" id="cotizarBtn" class="flex-1 w-full sm:w-auto px-4 py-2 text-white bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-150">
+                        Cotizar
+                    </button>
+                    <button type="button" id="guardarBtn" disabled class="flex-1 w-full sm:w-auto px-4 py-2 text-white bg-green-600 rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-150 disabled:bg-gray-400 disabled:cursor-not-allowed">
+                        Cotización aceptada
+                    </button>
+                </div>
+
+                <div id="messageBox" class="mt-4 p-4 rounded-lg text-center w-full hidden"></div>
             </div>
 
         </form>
@@ -88,35 +223,100 @@
     <!-- ===================== IMPRESIÓN 3D ===================== -->
     <section id="tab-impresion" class="hidden">
 
-        <h2 class="text-2xl font-bold text-center mb-2">Cotizador de Impresión 3D</h2>
-        <p class="text-center text-gray-500 mb-6">Costo de fabricación</p>
+               <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Cotizador de Impresión 3D</h1>
+        <p class="text-center text-gray-500 mb-8">Calcula el precio de tu proyecto de impresión 3D.</p>
 
-        <form id="impresionForm" class="space-y-6">
+        <form id="cotizadorForm" class="space-y-6">
 
-            <input id="producto" placeholder="Producto" class="w-full px-4 py-2 bg-gray-100 rounded-lg">
-
-            <div class="grid grid-cols-2 gap-4">
-                <input id="horas" type="number" placeholder="Horas" class="px-4 py-2 bg-gray-100 rounded-lg">
-                <input id="minutos" type="number" placeholder="Minutos" class="px-4 py-2 bg-gray-100 rounded-lg">
-                <input id="gramos" type="number" placeholder="Gramos" class="px-4 py-2 bg-gray-100 rounded-lg">
-                <input id="accesorios" type="number" placeholder="Accesorios" class="px-4 py-2 bg-gray-100 rounded-lg">
+            <!-- Nombre del Producto -->
+            <div>
+                <label for="producto" class="block text-sm font-medium text-gray-700 mb-1">Nombre del Producto</label>
+                <input type="text" id="producto" name="producto" required
+                        class="mt-1 block w-full px-4 py-2 bg-gray-100 border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        placeholder="Ej: Soporte para sensor">
             </div>
 
-            <fieldset class="p-4 border rounded">
-                <legend>Material</legend>
-                <label><input type="radio" name="material" value="0.5" checked> PLA</label>
-                <label><input type="radio" name="material" value="0.7"> PETG</label>
-                <label><input type="radio" name="material" value="1.0"> ASA</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- Tiempo (Horas) -->
+                <div>
+                    <label for="tiempoHoras" class="block text-sm font-medium text-gray-700 mb-1">Tiempo (Horas)</label>
+                    <input type="number" id="tiempoHoras" name="tiempoHoras" required
+                            class="mt-1 block w-full px-4 py-2 bg-gray-100 border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <!-- Tiempo (Minutos) -->
+                <div>
+                    <label for="tiempoMinutos" class="block text-sm font-medium text-gray-700 mb-1">Tiempo (Minutos)</label>
+                    <input type="number" id="tiempoMinutos" name="tiempoMinutos" required
+                            class="mt-1 block w-full px-4 py-2 bg-gray-100 border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <!-- Gramos -->
+                <div>
+                    <label for="gramos" class="block text-sm font-medium text-gray-700 mb-1">Gramos</label>
+                    <input type="number" id="gramos" name="gramos" required
+                            class="mt-1 block w-full px-4 py-2 bg-gray-100 border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <!-- Accesorios -->
+                <div>
+                    <label for="accesorios" class="block text-sm font-medium text-gray-700 mb-1">Accesorios</label>
+                    <input type="number" id="accesorios" name="accesorios" required
+                            class="mt-1 block w-full px-4 py-2 bg-gray-100 border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+            </div>
+
+            <!-- Materiales -->
+            <fieldset class="p-4 border border-gray-200 rounded-lg">
+                <legend class="text-sm font-medium text-gray-700">Material</legend>
+                <div class="mt-2 space-y-2">
+                    <label class="flex items-center">
+                        <input type="radio" name="material" value="0.5" id="pla" checked class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                        <span class="ml-2 text-sm text-gray-700">PLA</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="material" value="0.6" id="pla+" class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                        <span class="ml-2 text-sm text-gray-700">PLA+</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="material" value="0.7" id="petg" class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                        <span class="ml-2 text-sm text-gray-700">PETG</span>
+                    </label>                  
+                    <label class="flex items-center">
+                        <input type="radio" name="material" value="0.8" id="abs" class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                        <span class="ml-2 text-sm text-gray-700">ABS</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="material" value="0.9" id="tpu" class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                        <span class="ml-2 text-sm text-gray-700">TPU</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="material" value="1.0" id="asa" class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                        <span class="ml-2 text-sm text-gray-700">ASA</span>
+                    </label>
+                </div>
             </fieldset>
 
-            <div class="text-center">
-                <p id="impresionTotal" class="text-xl font-bold">Costo: $0</p>
-                <button type="button" id="btnImpresion"
-                        class="mt-3 px-4 py-2 bg-indigo-600 text-white rounded-lg">
-                    Cotizar
-                </button>
+            <div class="pt-6 border-t border-gray-200 mt-6 flex flex-col items-center">
+                <div id="resultContainer" class="mb-4 text-center space-y-2 w-full">
+                    <p id="totalText" class="text-xl font-bold text-gray-800">
+                        Costo de fabricación: <span id="totalDisplay" class="text-indigo-600">0.00</span>
+                    </p>
+                    <!-- Campo de entrada para el Precio de Venta Sugerido -->
+                    <div id="ventaContainer" class="hidden">
+                        <label for="precioVenta" class="block text-sm font-medium text-gray-700 mb-1">Precio sugerido de venta sin IVA</label>
+                        <input type="number" id="precioVenta" name="precioVenta" min="0" step="0.01" required
+                                class="mt-1 block w-full px-4 py-2 bg-gray-100 border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                value="0.00">
+                    </div>          
+                </div>
+                <div class="w-full flex flex-col sm:flex-row gap-4">
+                    <button type="button" id="btnCalcular" class="flex-1 w-full sm:w-auto px-4 py-2 text-white bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-150">
+                        Cotizar
+                    </button>
+                    <button type="button" id="btnGuardar" disabled class="flex-1 w-full sm:w-auto px-4 py-2 text-white bg-green-600 rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-150 disabled:bg-gray-400 disabled:cursor-not-allowed">
+                        Cotización aceptada
+                    </button>
+                </div>
+                <div id="messageBox" class="mt-4 p-4 rounded-lg text-center w-full hidden"></div>
             </div>
-
         </form>
     </section>
 
@@ -142,31 +342,213 @@
 
 <!-- ===================== JS DISEÑO ===================== -->
 <script>
-(() => {
-    document.getElementById('btnDiseno').onclick = () => {
-        const precio = +document.getElementById('disenoPrecio').value;
-        let puntos = 0;
-        ['claridad','funcionalidad','iteraciones'].forEach(n => {
-            puntos += +document.querySelector(`input[name="${n}"]:checked`).value;
+    // REPLACE THIS URL with your deployed Google Apps Script Web App URL
+    const webAppUrl = 'https://script.google.com/macros/s/AKfycby8stnQMyn8qVifOiBD_-1jC9E-XYRNXZUd20JC8vBgqB-JW_uwxwTndcSIIiA2q1QPPA/exec';
+
+    const form = document.getElementById('cotizadorForm');
+    const cotizarBtn = document.getElementById('cotizarBtn');
+    const guardarBtn = document.getElementById('guardarBtn');
+    const totalText = document.getElementById('totalText');
+    const messageBox = document.getElementById('messageBox');
+
+    function showMessage(message, type) {
+        messageBox.textContent = message;
+        let bgColor = '';
+        let textColor = '';
+
+        switch(type) {
+            case 'success':
+                bgColor = 'bg-green-100';
+                textColor = 'text-green-700';
+                break;
+            case 'error':
+                bgColor = 'bg-red-100';
+                textColor = 'text-red-700';
+                break;
+            case 'info':
+                bgColor = 'bg-blue-100';
+                textColor = 'text-blue-700';
+                break;
+            default:
+                bgColor = 'bg-gray-100';
+                textColor = 'text-gray-700';
+                break;
+        }
+        messageBox.className = `mt-4 p-4 rounded-lg text-center w-full ${bgColor} ${textColor}`;
+        messageBox.style.display = 'block';
+    }
+
+    function validateForm() {
+        const nombreProyecto = document.getElementById('nombreProyecto').value.trim();
+        if (!nombreProyecto) {
+            return 'El nombre del proyecto es obligatorio.';
+        }
+
+        const categorias = ['claridad', 'funcionalidad', 'precision', 'iteraciones', 'entrega', 'urgencia'];
+        for (const cat of categorias) {
+            if (!form.querySelector(`input[name="${cat}"]:checked`)) {
+                return `Falta seleccionar una opción en la categoría de ${cat}.`;
+            }
+        }
+        return null; // Return null if valid
+    }
+
+    cotizarBtn.addEventListener('click', () => {
+        messageBox.style.display = 'none'; // Esconde cualquier mensaje previo
+        const validationError = validateForm();
+        if (validationError) {
+            showMessage(validationError, 'error');
+            guardarBtn.disabled = true;
+            return;
+        }
+
+        const precioUnitario = parseFloat(document.getElementById('precioUnitario').value);
+        let sumatoriaPuntos = 0;
+        const categorias = ['claridad', 'funcionalidad', 'precision', 'iteraciones', 'entrega', 'urgencia'];
+        
+        categorias.forEach(cat => {
+            const checkedRadio = form.querySelector(`input[name="${cat}"]:checked`);
+            sumatoriaPuntos += parseInt(checkedRadio.value);
         });
-        document.getElementById('disenoTotal').textContent =
-            `Total: $${(puntos * precio).toFixed(2)}`;
-    };
-})();
+
+        const total = sumatoriaPuntos * precioUnitario;
+        
+        totalText.textContent = `Precio Total Estimado: $${total.toFixed(2)}`;
+        guardarBtn.disabled = false;
+    });
+
+    guardarBtn.addEventListener('click', async () => {
+        const validationError = validateForm();
+        if (validationError) {
+            showMessage(validationError, 'error');
+            return;
+        }
+        
+        guardarBtn.disabled = true;
+        showMessage('Enviando cotización...', 'info');
+
+        const selectedData = {};
+        const categorias = ['claridad', 'funcionalidad', 'precision', 'iteraciones', 'entrega', 'urgencia'];
+        
+        categorias.forEach(cat => {
+            const checkedRadio = form.querySelector(`input[name="${cat}"]:checked`);
+            selectedData[cat] = {
+                valor: parseInt(checkedRadio.value),
+                texto: checkedRadio.dataset.text
+            };
+        });
+
+        const nombreProyecto = document.getElementById('nombreProyecto').value;
+        const precioUnitario = parseFloat(document.getElementById('precioUnitario').value);
+        const total = parseFloat(totalText.textContent.replace('Precio Total Estimado: $', ''));
+
+        const payload = {
+            nombreProyecto,
+            ...selectedData,
+            precioUnitario,
+            total
+        };
+
+        try {
+            const response = await fetch(webAppUrl, {
+                method: 'POST',
+                mode: 'no-cors', // Needed for CORS issue with Google Apps Script
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload)
+            });
+
+            // Since we use 'no-cors', we assume success for now.
+            showMessage('Cotización guardada exitosamente. ¡Gracias!', 'success');
+        } catch (error) {
+            console.error('Error al enviar la cotización:', error);
+            showMessage('Error al guardar la cotización. Por favor, inténtelo de nuevo.', 'error');
+            guardarBtn.disabled = false; // Re-enable button on error
+        }
+    });
 </script>
 
 <!-- ===================== JS IMPRESIÓN ===================== -->
 <script>
-(() => {
-    document.getElementById('btnImpresion').onclick = () => {
-        const h = +horas.value + (+minutos.value / 60);
-        const g = +gramos.value;
-        const a = +accesorios.value;
-        const m = +document.querySelector('input[name="material"]:checked').value;
-        const total = (h * 2) + (g * m) + a + 15;
-        impresionTotal.textContent = `Costo: $${total.toFixed(2)}`;
-    };
-})();
+        const urlScript = 'https://script.google.com/macros/s/AKfycbzx9YhWoTAG7k_wBABnLz2O0UtkECMASV3ELgk4iqS51gzan2q-UWzcySqRzqd_SVte/exec';
+        const btnCalcular = document.getElementById('btnCalcular');
+        const btnGuardar = document.getElementById('btnGuardar');
+        const totalDisplay = document.getElementById('totalDisplay');
+        const ventaContainer = document.getElementById('ventaContainer');
+        const precioVentaInput = document.getElementById('precioVenta');
+        const messageBox = document.getElementById('messageBox');
+        
+        // Asignación de eventos con addEventListener (buena práctica)
+        btnCalcular.addEventListener('click', calcular);
+        btnGuardar.addEventListener('click', enviarDatos);
+        
+        function calcular() {
+            const producto = document.getElementById('producto').value;
+            const tiempoHoras = parseFloat(document.getElementById('tiempoHoras').value) || 0;
+            const tiempoMinutos = parseFloat(document.getElementById('tiempoMinutos').value) || 0;
+            const gramos = parseFloat(document.getElementById('gramos').value) || 0;
+            const accesorios = parseFloat(document.getElementById('accesorios').value) || 0;
+            const material = parseFloat(document.querySelector('input[name="material"]:checked').value) || 0;
+            
+            if (!producto || isNaN(tiempoHoras) || isNaN(tiempoMinutos) || isNaN(gramos) || isNaN(accesorios) || isNaN(material)) {
+                showMessage('Por favor, llena todos los campos.', 'bg-red-100 text-red-700');
+                totalDisplay.textContent = '0.00';
+                ventaContainer.classList.add('hidden');
+                btnGuardar.disabled = true;
+                return;
+            }
+
+            const precio = (tiempoHoras + (tiempoMinutos / 60)) * 2 + (gramos * material) + accesorios + 15;
+            const precioVentaSugerido = (((tiempoHoras + (tiempoMinutos / 60)) * 2 + (gramos * material)) * 3)+ accesorios + 20;
+
+            totalDisplay.textContent = precio.toFixed(2);
+            precioVentaInput.value = precioVentaSugerido.toFixed(2);
+            
+            ventaContainer.classList.remove('hidden');
+            btnGuardar.disabled = false;
+            showMessage('Cotización calculada con éxito.', 'bg-green-100 text-green-700');
+        }
+        
+        async function enviarDatos() {
+            // Deshabilitar el botón inmediatamente para evitar envíos duplicados
+            btnGuardar.disabled = true;
+            // Mostrar un mensaje de "Enviando" en verde
+            showMessage('Enviando...', 'bg-green-100 text-green-700');
+
+            const datos = {
+                producto: document.getElementById('producto').value,
+                tiempoHoras: document.getElementById('tiempoHoras').value,
+                tiempoMinutos: document.getElementById('tiempoMinutos').value,
+                gramos: document.getElementById('gramos').value,
+                accesorios: document.getElementById('accesorios').value,
+                material: document.querySelector('input[name="material"]:checked').id,
+                precioTotal: totalDisplay.textContent,
+                precioVenta: precioVentaInput.value,
+            };
+            
+            const formData = new FormData();
+            for (const key in datos) {
+                formData.append(key, datos[key]);
+            }
+
+            try {
+                const response = await fetch(urlScript, { method: 'POST', body: formData });
+                const result = await response.text();
+                showMessage(result, 'bg-green-100 text-green-700');
+            } catch (error) {
+                console.error('Error al guardar los datos:', error);
+                showMessage('Hubo un error al guardar los datos.', 'bg-red-100 text-red-700');
+            }
+            // El botón permanece deshabilitado de forma permanente.
+            // Para poder volver a enviarlo, el usuario debe recargar la página.
+        }
+        
+        function showMessage(text, classes) {
+            messageBox.textContent = text;
+            messageBox.className = `mt-4 p-4 rounded-lg text-center w-full ${classes}`;
+            messageBox.classList.remove('hidden');
+        }
 </script>
 
 </body>
