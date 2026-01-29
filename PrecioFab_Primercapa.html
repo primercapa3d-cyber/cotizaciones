@@ -94,15 +94,27 @@
             </fieldset>
 
             <div class="pt-6 border-t border-gray-200 mt-6 flex flex-col items-center">
-                <div id="resultContainer" class="mb-4 text-center space-y-2 w-full">
-                    <p id="totalText" class="text-xl font-bold text-gray-800">
-                        Costo de fabricación: <span id="totalDisplay" class="text-indigo-600">0.00</span>
+                <div id="resultContainer" class="mb-6 text-center space-y-4 w-full">
+
+                    <!-- Costo de fabricación (pequeño) -->
+                    <p id="totalText" class="text-sm font-medium text-gray-500">
+                        Costo de fabricación:
+                        <span id="totalDisplay" class="text-gray-700">0.00</span>
                     </p>
-                    <!-- Campo de entrada para el Precio de Venta Sugerido -->
+                    <!-- Precio de Venta (grande, protagonista y no editable) -->
                     <div id="ventaContainer" class="hidden">
-                        <label for="precioVenta" class="block text-sm font-medium text-gray-700 mb-1">Precio de Venta</label>
-                        Costo de fabricación: <span id="precioVenta" name="precioVenta" class="text-indigo-600">0.00</span>
-                    </div>          
+                        <label class="block text-sm font-medium text-gray-500 mb-1">
+                            Precio de Venta
+                        </label>
+                        <input
+                            type="number"
+                            id="precioVenta"
+                            name="precioVenta"
+                            readonly
+                            class="w-full text-center text-4xl font-extrabold text-green-600 bg-green-50 border-2 border-green-300 rounded-xl py-4 cursor-not-allowed"
+                            value="0.00"
+                        >
+                    </div>
                 </div>
                 <div class="w-full flex flex-col sm:flex-row gap-4">
                     <button type="button" id="btnCalcular" class="flex-1 w-full sm:w-auto px-4 py-2 text-white bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-150">
