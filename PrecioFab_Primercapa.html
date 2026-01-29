@@ -159,7 +159,7 @@
             }
 
             const costo = (tiempoHoras + (tiempoMinutos / 60)) * 3 + (gramos * material) + accesorios + 50;
-            const precioVenta = (((tiempoHoras + (tiempoMinutos / 60)) * 30 + (gramos * material))+ accesorios + 100)*1.16;
+            const precioVenta = (((tiempoHoras + (tiempoMinutos / 60)) * 25 + (gramos * material))+ accesorios + 50)*1.16;
 
             totalDisplay.textContent = costo.toFixed(2);
             precioVentaInput.value = precioVenta.toFixed(2);
