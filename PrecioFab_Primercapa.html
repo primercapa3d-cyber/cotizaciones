@@ -99,9 +99,10 @@
                         Costo de fabricación: <span id="totalDisplay" class="text-indigo-600">0.00</span>
                     </p>
                     <!-- Campo de entrada para el Precio de Venta Sugerido -->
-                    <p id="ventaContainer" class="text-xl font-bold text-gray-800">
-                        Precio de Venta: <span id="precioVenta" class="text-indigo-600">0.00</span>
-                    </p>
+                    <div id="ventaContainer" class="hidden">
+                        <label for="precioVenta" class="block text-sm font-medium text-gray-700 mb-1">Precio de Venta</label>
+                        Costo de fabricación: <span id="precioVenta" name="precioVenta" class="text-indigo-600">0.00</span>
+                    </div>          
                 </div>
                 <div class="w-full flex flex-col sm:flex-row gap-4">
                     <button type="button" id="btnCalcular" class="flex-1 w-full sm:w-auto px-4 py-2 text-white bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-150">
@@ -115,7 +116,7 @@
             </div>
         </form>
     </div>
-    
+
     <script>
         const urlScript = 'https://script.google.com/macros/s/AKfycbzx9YhWoTAG7k_wBABnLz2O0UtkECMASV3ELgk4iqS51gzan2q-UWzcySqRzqd_SVte/exec';
         const btnCalcular = document.getElementById('btnCalcular');
