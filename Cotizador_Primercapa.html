@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotizadores 3D</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen p-4 flex items-start justify-center">
+
+<div class="w-full max-w-5xl bg-white rounded-xl shadow-lg p-6">
+
+    <!-- TABS -->
+    <div class="flex border-b mb-6">
+        <button class="tab-btn px-4 py-2 font-semibold border-b-2 border-indigo-600 text-indigo-600"
+                data-tab="diseno">Diseño 3D</button>
+        <button class="tab-btn px-4 py-2 font-semibold text-gray-500 hover:text-indigo-600"
+                data-tab="impresion">Impresión 3D</button>
+    </div>
+
+    <!-- ===================== DISEÑO 3D ===================== -->
+    <section id="tab-diseno">
+
+        <h2 class="text-2xl font-bold text-center mb-2">Cotizador de Diseño 3D</h2>
+        <p class="text-center text-gray-500 mb-6">Cálculo por puntos y complejidad</p>
+
+        <form id="disenoForm" class="space-y-6">
+
+            <div>
+                <label class="block text-sm font-medium mb-1">Nombre del Proyecto</label>
+                <input id="disenoNombre" class="w-full px-4 py-2 bg-gray-100 rounded-lg" required>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-1">Precio por Punto ($)</label>
+                <input id="disenoPrecio" type="number" value="50" class="w-full px-4 py-2 bg-gray-100 rounded-lg">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <fieldset class="p-4 border rounded">
+                    <legend>Claridad</legend>
+                    <label><input type="radio" name="claridad" value="1" checked> Referencias</label><br>
+                    <label><input type="radio" name="claridad" value="3"> Conceptos</label><br>
+                    <label><input type="radio" name="claridad" value="5"> Asesoría</label>
+                </fieldset>
+
+                <fieldset class="p-4 border rounded">
+                    <legend>Complejidad</legend>
+                    <label><input type="radio" name="funcionalidad" value="1" checked> Baja</label><br>
+                    <label><input type="radio" name="funcionalidad" value="4"> Media</label><br>
+                    <label><input type="radio" name="funcionalidad" value="8"> Alta</label>
+                </fieldset>
+
+                <fieldset class="p-4 border rounded">
+                    <legend>Horas</legend>
+                    <label><input type="radio" name="iteraciones" value="1" checked> Básico</label><br>
+                    <label><input type="radio" name="iteraciones" value="5"> Intermedio</label><br>
+                    <label><input type="radio" name="iteraciones" value="10"> Avanzado</label>
+                </fieldset>
+            </div>
+
+            <div class="text-center">
+                <p id="disenoTotal" class="text-xl font-bold">Total: $0</p>
+                <button type="button" id="btnDiseno"
+                        class="mt-3 px-4 py-2 bg-indigo-600 text-white rounded-lg">
+                    Cotizar
+                </button>
+            </div>
+
+        </form>
+    </section>
+
+    <!-- ===================== IMPRESIÓN 3D ===================== -->
+    <section id="tab-impresion" class="hidden">
+
+        <h2 class="text-2xl font-bold text-center mb-2">Cotizador de Impresión 3D</h2>
+        <p class="text-center text-gray-500 mb-6">Costo de fabricación</p>
+
+        <form id="impresionForm" class="space-y-6">
+
+            <input id="producto" placeholder="Producto" class="w-full px-4 py-2 bg-gray-100 rounded-lg">
+
+            <div class="grid grid-cols-2 gap-4">
+                <input id="horas" type="number" placeholder="Horas" class="px-4 py-2 bg-gray-100 rounded-lg">
+                <input id="minutos" type="number" placeholder="Minutos" class="px-4 py-2 bg-gray-100 rounded-lg">
+                <input id="gramos" type="number" placeholder="Gramos" class="px-4 py-2 bg-gray-100 rounded-lg">
+                <input id="accesorios" type="number" placeholder="Accesorios" class="px-4 py-2 bg-gray-100 rounded-lg">
+            </div>
+
+            <fieldset class="p-4 border rounded">
+                <legend>Material</legend>
+                <label><input type="radio" name="material" value="0.5" checked> PLA</label>
+                <label><input type="radio" name="material" value="0.7"> PETG</label>
+                <label><input type="radio" name="material" value="1.0"> ASA</label>
+            </fieldset>
+
+            <div class="text-center">
+                <p id="impresionTotal" class="text-xl font-bold">Costo: $0</p>
+                <button type="button" id="btnImpresion"
+                        class="mt-3 px-4 py-2 bg-indigo-600 text-white rounded-lg">
+                    Cotizar
+                </button>
+            </div>
+
+        </form>
+    </section>
+
+</div>
+
+<!-- ===================== TABS ===================== -->
+<script>
+    const tabs = document.querySelectorAll('.tab-btn');
+    const sections = {
+        diseno: document.getElementById('tab-diseno'),
+        impresion: document.getElementById('tab-impresion')
+    };
+
+    tabs.forEach(btn => {
+        btn.onclick = () => {
+            tabs.forEach(b => b.classList.remove('border-indigo-600','text-indigo-600'));
+            btn.classList.add('border-indigo-600','text-indigo-600');
+            Object.values(sections).forEach(s => s.classList.add('hidden'));
+            sections[btn.dataset.tab].classList.remove('hidden');
+        };
+    });
+</script>
+
+<!-- ===================== JS DISEÑO ===================== -->
+<script>
+(() => {
+    document.getElementById('btnDiseno').onclick = () => {
+        const precio = +document.getElementById('disenoPrecio').value;
+        let puntos = 0;
+        ['claridad','funcionalidad','iteraciones'].forEach(n => {
+            puntos += +document.querySelector(`input[name="${n}"]:checked`).value;
+        });
+        document.getElementById('disenoTotal').textContent =
+            `Total: $${(puntos * precio).toFixed(2)}`;
+    };
+})();
+</script>
+
+<!-- ===================== JS IMPRESIÓN ===================== -->
+<script>
+(() => {
+    document.getElementById('btnImpresion').onclick = () => {
+        const h = +horas.value + (+minutos.value / 60);
+        const g = +gramos.value;
+        const a = +accesorios.value;
+        const m = +document.querySelector('input[name="material"]:checked').value;
+        const total = (h * 2) + (g * m) + a + 15;
+        impresionTotal.textContent = `Costo: $${total.toFixed(2)}`;
+    };
+})();
+</script>
+
+</body>
+</html>
