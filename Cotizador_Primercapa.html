@@ -214,7 +214,7 @@
                     </button>
                 </div>
 
-                <div id="messageBox" class="mt-4 p-4 rounded-lg text-center w-full hidden"></div>
+                <div id="messageBoxDISE" class="mt-4 p-4 rounded-lg text-center w-full hidden"></div>
             </div>
 
         </form>
@@ -315,7 +315,7 @@
                         Cotización aceptada
                     </button>
                 </div>
-                <div id="messageBox" class="mt-4 p-4 rounded-lg text-center w-full hidden"></div>
+                <div id="messageBoxIMPR" class="mt-4 p-4 rounded-lg text-center w-full hidden"></div>
             </div>
         </form>
     </section>
@@ -349,10 +349,10 @@
     const cotizarBtn = document.getElementById('cotizarBtn');
     const guardarBtn = document.getElementById('guardarBtn');
     const totalText = document.getElementById('totalText');
-    const messageBox = document.getElementById('messageBox');
+    const messageBoxD = document.getElementById('messageBoxDISE');
 
     function showMessage(message, type) {
-        messageBox.textContent = message;
+        messageBoxD.textContent = message;
         let bgColor = '';
         let textColor = '';
 
@@ -374,8 +374,8 @@
                 textColor = 'text-gray-700';
                 break;
         }
-        messageBox.className = `mt-4 p-4 rounded-lg text-center w-full ${bgColor} ${textColor}`;
-        messageBox.style.display = 'block';
+        messageBoxD.className = `mt-4 p-4 rounded-lg text-center w-full ${bgColor} ${textColor}`;
+        messageBoxD.style.display = 'block';
     }
 
     function validateForm() {
@@ -394,7 +394,7 @@
     }
 
     cotizarBtn.addEventListener('click', () => {
-        messageBox.style.display = 'none'; // Esconde cualquier mensaje previo
+        messageBoxD.style.display = 'none'; // Esconde cualquier mensaje previo
         const validationError = validateForm();
         if (validationError) {
             showMessage(validationError, 'error');
@@ -477,7 +477,7 @@
         const totalDisplay = document.getElementById('totalDisplay');
         const ventaContainer = document.getElementById('ventaContainer');
         const precioVentaInput = document.getElementById('precioVenta');
-        const messageBox = document.getElementById('messageBox');
+        const messageBoxI = document.getElementById('messageBoxIMPR');
         
         // Asignación de eventos con addEventListener (buena práctica)
         btnCalcular.addEventListener('click', calcular);
@@ -545,9 +545,9 @@
         }
         
         function showMessage(text, classes) {
-            messageBox.textContent = text;
-            messageBox.className = `mt-4 p-4 rounded-lg text-center w-full ${classes}`;
-            messageBox.classList.remove('hidden');
+            messageBoxI.textContent = text;
+            messageBoxI.className = `mt-4 p-4 rounded-lg text-center w-full ${classes}`;
+            messageBoxI.classList.remove('hidden');
         }
 </script>
 
