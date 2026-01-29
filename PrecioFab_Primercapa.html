@@ -158,11 +158,11 @@
                 return;
             }
 
-            const precio = (tiempoHoras + (tiempoMinutos / 60)) * 2 + (gramos * material) + accesorios + 15;
-            const precioVentaSugerido = (((tiempoHoras + (tiempoMinutos / 60)) * 2 + (gramos * material)) * 3)+ accesorios + 20;
+            const costo = (tiempoHoras + (tiempoMinutos / 60)) * 3 + (gramos * material) + accesorios + 50;
+            const precioVenta = (((tiempoHoras + (tiempoMinutos / 60)) * 30 + (gramos * material))+ accesorios + 100)*1.16;
 
-            totalDisplay.textContent = precio.toFixed(2);
-            precioVentaInput.value = precioVentaSugerido.toFixed(2);
+            totalDisplay.textContent = costo.toFixed(2);
+            precioVentaInput.value = precioVenta.toFixed(2);
             
             ventaContainer.classList.remove('hidden');
             btnGuardar.disabled = false;
