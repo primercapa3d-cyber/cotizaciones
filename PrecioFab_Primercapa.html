@@ -100,10 +100,15 @@
             </fieldset>
 
             <!-- Envío incluido -->
-            <label class="flex items-center">
-                <input type="checkbox" id="envioIncluido" name="envioIncluido" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 rounded">
-                <span class="ml-2 text-sm font-medium text-gray-700">Envío incluido</span>
-            </label>
+            <div class="flex items-center gap-4">
+                <label class="flex items-center">
+                    <input type="checkbox" id="envioIncluido" name="envioIncluido" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 rounded">
+                    <span class="ml-2 text-sm font-medium text-gray-700">Envío incluido</span>
+                </label>
+                <input type="number" id="costoEnvio" name="costoEnvio" value="100" step="any" min="0" disabled
+                        class="w-32 px-4 py-2 bg-gray-100 border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                        aria-label="Costo del envío">
+            </div>
 
             <div class="pt-6 border-t border-gray-200 mt-6 flex flex-col items-center">
                 <div id="resultContainer" class="mb-6 text-center space-y-4 w-full">
@@ -142,7 +147,6 @@
         const urlScript = 'https://script.google.com/macros/s/AKfycbzx9YhWoTAG7k_wBABnLz2O0UtkECMASV3ELgk4iqS51gzan2q-UWzcySqRzqd_SVte/exec';
         const tarifaDiseno = 50; // por hora de diseño
         const tarifaPost = 40;   // por hora de postprocesado
-        const costoEnvio = 100;  // se suma si está marcado "Envío incluido"
         const btnCalcular = document.getElementById('btnCalcular');
         const totalDisplay = document.getElementById('totalDisplay');
         const ventaContainer = document.getElementById('ventaContainer');
@@ -151,7 +155,19 @@
         
         // Asignación de eventos con addEventListener (buena práctica)
         btnCalcular.addEventListener('click', calcular);
-        
+
+        // El monto del envío solo se puede editar cuando "Envío incluido" está marcado
+        const envioCheck = document.getElementById('envioIncluido');
+        const envioMonto = document.getElementById('costoEnvio');
+        envioCheck.addEventListener('change', () => {
+            envioMonto.disabled = !envioCheck.checked;
+        });
+
+        // Monto del envío: lo que haya en el cuadro si está marcado, 0 si no
+        function obtenerEnvio() {
+            return envioCheck.checked ? (parseFloat(envioMonto.value) || 0) : 0;
+        }
+
         async function calcular() {
             const producto = document.getElementById('producto').value;
             const tiempoHoras = parseFloat(document.getElementById('tiempoHoras').value) || 0;
@@ -159,7 +175,7 @@
             const accesorios = parseFloat(document.getElementById('accesorios').value) || 0;
             const horasDiseno = parseFloat(document.getElementById('horasDisenio').value) || 0;
             const horasPost = parseFloat(document.getElementById('horasPost').value) || 0;
-            const envio = document.getElementById('envioIncluido').checked ? costoEnvio : 0;
+            const envio = obtenerEnvio();
             const material = parseFloat(document.querySelector('input[name="material"]:checked').value) || 0;
             
             if (!producto || isNaN(tiempoHoras) || isNaN(gramos) || isNaN(accesorios) || isNaN(material)) {
@@ -198,7 +214,7 @@
                 accesorios: document.getElementById('accesorios').value,
                 horasDisenio: document.getElementById('horasDisenio').value || '0',
                 horasPost: document.getElementById('horasPost').value || '0',
-                envio: document.getElementById('envioIncluido').checked ? 'Sí' : 'No',
+                envio: obtenerEnvio(),
                 material: document.querySelector('input[name="material"]:checked').id,
                 precioTotal: totalDisplay.textContent,
                 precioVenta: precioVentaInput.value,
