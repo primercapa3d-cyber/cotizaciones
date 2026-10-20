@@ -139,7 +139,7 @@
     </div>
 
     <script>
-        const urlScript = 'https://script.google.com/macros/s/AKfycbwCRbpt3txNouv0KewHv6TFdMJfgRpcausmroOQPx5MaZ_5XpQSIaj31TuaxE2Ds7wE/exec';
+        const urlScript = 'https://script.google.com/macros/s/AKfycbzx9YhWoTAG7k_wBABnLz2O0UtkECMASV3ELgk4iqS51gzan2q-UWzcySqRzqd_SVte/exec';
         const tarifaDiseno = 50; // por hora de diseño
         const tarifaPost = 40;   // por hora de postprocesado
         const costoEnvio = 100;  // se suma si está marcado "Envío incluido"
@@ -198,6 +198,7 @@
                 accesorios: document.getElementById('accesorios').value,
                 horasDisenio: document.getElementById('horasDisenio').value || '0',
                 horasPost: document.getElementById('horasPost').value || '0',
+                envio: document.getElementById('envioIncluido').checked ? 'Sí' : 'No',
                 material: document.querySelector('input[name="material"]:checked').id,
                 precioTotal: totalDisplay.textContent,
                 precioVenta: precioVentaInput.value,
