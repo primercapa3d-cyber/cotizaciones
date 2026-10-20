@@ -117,11 +117,8 @@
                     </div>
                 </div>
                 <div class="w-full flex flex-col sm:flex-row gap-4">
-                    <button type="button" id="btnCalcular" class="flex-1 w-full sm:w-auto px-4 py-2 text-white bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-150">
+                    <button type="button" id="btnCalcular" class="flex-1 w-full sm:w-auto px-4 py-2 text-white bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-150 disabled:bg-gray-400 disabled:cursor-not-allowed">
                         Cotizar
-                    </button>
-                    <button type="button" id="btnGuardar" disabled class="flex-1 w-full sm:w-auto px-4 py-2 text-white bg-green-600 rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-150 disabled:bg-gray-400 disabled:cursor-not-allowed">
-                        Cotización aceptada
                     </button>
                 </div>
                 <div id="messageBox" class="mt-4 p-4 rounded-lg text-center w-full hidden"></div>
@@ -132,7 +129,6 @@
     <script>
         const urlScript = 'https://script.google.com/macros/s/AKfycbzx9YhWoTAG7k_wBABnLz2O0UtkECMASV3ELgk4iqS51gzan2q-UWzcySqRzqd_SVte/exec';
         const btnCalcular = document.getElementById('btnCalcular');
-        const btnGuardar = document.getElementById('btnGuardar');
         const totalDisplay = document.getElementById('totalDisplay');
         const ventaContainer = document.getElementById('ventaContainer');
         const precioVentaInput = document.getElementById('precioVenta');
@@ -140,9 +136,8 @@
         
         // Asignación de eventos con addEventListener (buena práctica)
         btnCalcular.addEventListener('click', calcular);
-        btnGuardar.addEventListener('click', enviarDatos);
         
-        function calcular() {
+        async function calcular() {
             const producto = document.getElementById('producto').value;
             const tiempoHoras = parseFloat(document.getElementById('tiempoHoras').value) || 0;
             const tiempoMinutos = parseFloat(document.getElementById('tiempoMinutos').value) || 0;
@@ -154,7 +149,6 @@
                 showMessage('Por favor, llena todos los campos.', 'bg-red-100 text-red-700');
                 totalDisplay.textContent = '0.00';
                 ventaContainer.classList.add('hidden');
-                btnGuardar.disabled = true;
                 return;
             }
 
@@ -165,14 +159,14 @@
             precioVentaInput.value = precioVenta.toFixed(2);
             
             ventaContainer.classList.remove('hidden');
-            btnGuardar.disabled = false;
-            showMessage('Cotización calculada con éxito.', 'bg-green-100 text-green-700');
+
+            // Cada vez que se cotiza, se envían y guardan los datos
+            await enviarDatos();
         }
         
         async function enviarDatos() {
-            // Deshabilitar el botón inmediatamente para evitar envíos duplicados
-            btnGuardar.disabled = true;
-            // Mostrar un mensaje de "Enviando" en verde
+            // Deshabilitar el botón mientras se envía para evitar envíos duplicados
+            btnCalcular.disabled = true;
             showMessage('Enviando...', 'bg-green-100 text-green-700');
 
             const datos = {
@@ -198,9 +192,9 @@
             } catch (error) {
                 console.error('Error al guardar los datos:', error);
                 showMessage('Hubo un error al guardar los datos.', 'bg-red-100 text-red-700');
+            } finally {
+                btnCalcular.disabled = false;
             }
-            // El botón permanece deshabilitado de forma permanente.
-            // Para poder volver a enviarlo, el usuario debe recargar la página.
         }
         
         function showMessage(text, classes) {
