@@ -60,6 +60,18 @@
                     <input type="number" id="accesorios" name="accesorios" required
                             class="mt-1 block w-full px-4 py-2 bg-gray-100 border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                 </div>
+                <!-- Horas de diseño -->
+                <div>
+                    <label for="horasDisenio" class="block text-sm font-medium text-gray-700 mb-1">Horas de diseño</label>
+                    <input type="number" id="horasDisenio" name="horasDisenio" step="any" min="0" placeholder="0"
+                            class="mt-1 block w-full px-4 py-2 bg-gray-100 border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <!-- Horas de postprocesado -->
+                <div>
+                    <label for="horasPost" class="block text-sm font-medium text-gray-700 mb-1">Horas de postprocesado</label>
+                    <input type="number" id="horasPost" name="horasPost" step="any" min="0" placeholder="0"
+                            class="mt-1 block w-full px-4 py-2 bg-gray-100 border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
             </div>
 
             <!-- Materiales -->
@@ -92,6 +104,12 @@
                     </label>
                 </div>
             </fieldset>
+
+            <!-- Envío incluido -->
+            <label class="flex items-center">
+                <input type="checkbox" id="envioIncluido" name="envioIncluido" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 rounded">
+                <span class="ml-2 text-sm font-medium text-gray-700">Envío incluido</span>
+            </label>
 
             <div class="pt-6 border-t border-gray-200 mt-6 flex flex-col items-center">
                 <div id="resultContainer" class="mb-6 text-center space-y-4 w-full">
@@ -128,6 +146,9 @@
 
     <script>
         const urlScript = 'https://script.google.com/macros/s/AKfycbzx9YhWoTAG7k_wBABnLz2O0UtkECMASV3ELgk4iqS51gzan2q-UWzcySqRzqd_SVte/exec';
+        const tarifaDiseno = 50; // por hora de diseño
+        const tarifaPost = 40;   // por hora de postprocesado
+        const costoEnvio = 100;  // se suma si está marcado "Envío incluido"
         const btnCalcular = document.getElementById('btnCalcular');
         const totalDisplay = document.getElementById('totalDisplay');
         const ventaContainer = document.getElementById('ventaContainer');
@@ -143,6 +164,9 @@
             const tiempoMinutos = parseFloat(document.getElementById('tiempoMinutos').value) || 0;
             const gramos = parseFloat(document.getElementById('gramos').value) || 0;
             const accesorios = parseFloat(document.getElementById('accesorios').value) || 0;
+            const horasDiseno = parseFloat(document.getElementById('horasDisenio').value) || 0;
+            const horasPost = parseFloat(document.getElementById('horasPost').value) || 0;
+            const envio = document.getElementById('envioIncluido').checked ? costoEnvio : 0;
             const material = parseFloat(document.querySelector('input[name="material"]:checked').value) || 0;
             
             if (!producto || isNaN(tiempoHoras) || isNaN(tiempoMinutos) || isNaN(gramos) || isNaN(accesorios) || isNaN(material)) {
@@ -152,8 +176,13 @@
                 return;
             }
 
-            const costo = (tiempoHoras + (tiempoMinutos / 60)) * (material * 4) + (gramos * material) + accesorios;
-            const precioVenta = (((tiempoHoras + (tiempoMinutos / 60)) * (material * 16) + (gramos * material)*2.5)+ accesorios+30);
+            const costo = ((tiempoHoras + tiempoMinutos / 60) * (material * 8))
+                + (gramos * material) + accesorios
+                + (horasDiseno * tarifaDiseno)
+                + (horasPost * tarifaPost)
+                + envio;
+            // margen 100% sobre todo menos el envío, que se cobra tal cual
+            const precioVenta = (costo - envio) * 2.0 + envio;
 
             totalDisplay.textContent = costo.toFixed(2);
             precioVentaInput.value = precioVenta.toFixed(2);
@@ -175,6 +204,8 @@
                 tiempoMinutos: document.getElementById('tiempoMinutos').value,
                 gramos: document.getElementById('gramos').value,
                 accesorios: document.getElementById('accesorios').value,
+                horasDisenio: document.getElementById('horasDisenio').value || '0',
+                horasPost: document.getElementById('horasPost').value || '0',
                 material: document.querySelector('input[name="material"]:checked').id,
                 precioTotal: totalDisplay.textContent,
                 precioVenta: precioVentaInput.value,
