@@ -159,6 +159,7 @@
         const urlScript = 'https://script.google.com/macros/s/AKfycbx4n2shp2oTTL8zSzJBCDcYPDSZgjE1HvKXziOZlCzAAooRWQlklWoV1e9WygHQr-07/exec';
         const tarifaDiseno = 50; // por hora de diseño
         const tarifaPost = 40;   // por hora de postprocesado
+        const costoHoraImp = 10 // $3 de luz $4 de de desgaste(refacciones) de $3 amortizacion(impresora nueva)
         const btnCalcular = document.getElementById('btnCalcular');
         const totalDisplay = document.getElementById('totalDisplay');
         const ventaContainer = document.getElementById('ventaContainer');
@@ -237,7 +238,7 @@
                 return;
             }
 
-            const costo = (tiempoHoras * (material * 8))
+            const costo = (tiempoHoras * (material * costoHoraImp))
                 + (gramos * material) + accesorios
                 + (horasDiseno * tarifaDiseno)
                 + (horasPost * tarifaPost)
@@ -254,7 +255,7 @@
             mostrarResumen({
                 producto: producto.trim(),
                 materialNombre: document.querySelector('input[name="material"]:checked').nextElementSibling.textContent.trim(),
-                impresion: ((tiempoHoras * (material * 8)) + (gramos * material) + accesorios + (horasPost * tarifaPost)) * 2,
+                impresion: ((tiempoHoras * (material * costoHoraImp)) + (gramos * material) + accesorios + (horasPost * tarifaPost)) * 2,
                 diseno: horasDiseno * tarifaDiseno * 2,
                 envio: envio,
                 total: precioVenta
