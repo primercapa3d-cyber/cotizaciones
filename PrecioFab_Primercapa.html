@@ -105,7 +105,7 @@
                     <input type="checkbox" id="envioIncluido" name="envioIncluido" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 rounded">
                     <span class="ml-2 text-sm font-medium text-gray-700">Envío incluido</span>
                 </label>
-                <input type="number" id="costoEnvio" name="costoEnvio" value="100" step="any" min="0" disabled
+                <input type="number" id="costoEnvio" name="costoEnvio" value="150" step="any" min="0" disabled
                         class="w-32 px-4 py-2 bg-gray-100 border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                         aria-label="Costo del envío">
             </div>
@@ -157,9 +157,13 @@
 
     <script>
         const urlScript = 'https://script.google.com/macros/s/AKfycbx4n2shp2oTTL8zSzJBCDcYPDSZgjE1HvKXziOZlCzAAooRWQlklWoV1e9WygHQr-07/exec';
-        const tarifaDiseno = 50; // por hora de diseño
+        const tarifaDiseno = 60; // por hora de diseño
         const tarifaPost = 40;   // por hora de postprocesado
-        const costoHoraImp = 10 // $3 de luz $4 de de desgaste(refacciones) de $3 amortizacion(impresora nueva)
+        // $3 de luz 
+        // $4 de de desgaste(refacciones)
+        // $3 amortizacion(impresora nueva) 
+        // $5 Renta.
+        const costoHoraImp = 15;
         const btnCalcular = document.getElementById('btnCalcular');
         const totalDisplay = document.getElementById('totalDisplay');
         const ventaContainer = document.getElementById('ventaContainer');
